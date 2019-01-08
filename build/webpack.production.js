@@ -2,9 +2,9 @@ const path = require('path')
 const merge = require('webpack-merge')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
-const common = require('./webpack.common.js');
+const commonConfig = require('./webpack.common.js');
 
-const devConfig = merge(common, {
+const devConfig = merge(commonConfig, {
     mode: 'production',
     entry: path.resolve(__dirname, '../src/index.ts'),
     output: {

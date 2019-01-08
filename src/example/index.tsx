@@ -2,10 +2,7 @@ import * as React from "react";
 import { render } from "react-dom";
 import AppIndex from "../index";
 
-interface IAppProps {}
-interface IAppState {}
-
-class App extends React.Component<IAppProps, IAppState> {
+class App extends React.Component {
   public render(): JSX.Element {
     return (
       <div>Hello world<AppIndex /></div>

@@ -3,9 +3,9 @@ const merge = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
-const common = require('./webpack.common.js');
+const commonConfig = require('./webpack.common.js');
 
-const devConfig = merge(common, {
+const devConfig = merge(commonConfig, {
     mode: 'development',
     entry: path.resolve(__dirname, '../src/example/index.tsx'),
     output: {
@@ -17,7 +17,7 @@ const devConfig = merge(common, {
     plugins: [
         new HtmlWebpackPlugin({
           filename: path.resolve(__dirname, '../dist/index.html'),
-          template: path.resolve(__dirname, '../index.html'),
+          template: path.resolve(__dirname, '../src/example/index.html'),
           inject: true,
           hash: false,
         }),
@@ -31,12 +31,10 @@ const devConfig = merge(common, {
     devServer: {
       port: 8090,
       open: true,
-      inline: true, // 默认为true, 意思是，在打包时会注入一段代码到最后的js文件中，用来监视页面的改动而自动刷新页面,当为false时，网页自动刷新的模式是iframe，也就是将模板页放在一个frame中
+      inline: true,
       hot: false,
       compress: true,
     }
 })
-
-console.log('devConfigdevConfig', devConfig)
 
 module.exports = devConfig
