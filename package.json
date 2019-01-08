@@ -1,0 +1,44 @@
+{
+  "name": "flow-chart",
+  "version": "1.0.0",
+  "description": "工业应用的流程图设计",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config build/webpack.production.js",
+    "examples": "webpack-dev-server --inline --config build/webpack.development.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/serverusZhou/flow-chart.git"
+  },
+  "keywords": [
+    "flowCharts",
+    "react",
+    "canvas",
+    "typescript"
+  ],
+  "author": "Arvin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/serverusZhou/flow-chart/issues"
+  },
+  "homepage": "https://github.com/serverusZhou/flow-chart#readme",
+  "dependencies": {
+    "@types/react": "^16.7.18",
+    "@types/react-dom": "^16.0.11",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
+  },
+  "devDependencies": {
+    "html-webpack-plugin": "^3.2.0",
+    "progress-bar-webpack-plugin": "^1.11.0",
+    "source-map-loader": "^0.2.4",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.2.2",
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.2.1",
+    "webpack-dev-server": "^3.1.14",
+    "webpack-merge": "^4.2.1"
+  }
+}
