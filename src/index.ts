@@ -1,2 +1,2 @@
-import App from "./app/App";
-export default App;
+import Chart from "./app/App";
+export default Chart;

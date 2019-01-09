@@ -1,15 +1,20 @@
 import * as React from "react";
-import { render } from "react-dom";
+import createHoc from "./CreateHoc";
+
+const { Component } = React;
 
 interface IAppProps {}
 interface IAppState {}
 
-class App extends React.Component<IAppProps, IAppState> {
+class Chart extends Component<IAppProps, IAppState> {
+
+  public static create = createHoc;
+
   public render(): JSX.Element {
     return (
-      <div>Hello world App</div>
+      <div>Hello your head</div>
     );
   }
 }
 
-export default App;
+export default Chart;

@@ -1,11 +1,11 @@
 import * as React from "react";
 import { render } from "react-dom";
-import AppIndex from "../index";
+import Example from "./Example";
 
 class App extends React.Component {
   public render(): JSX.Element {
     return (
-      <div>Hello world<AppIndex /></div>
+      <div><Example /></div>
     );
   }
 }
