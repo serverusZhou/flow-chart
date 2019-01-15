@@ -3,7 +3,7 @@ import * as React from "react";
 import Chart from "../index";
 
 interface IAppProps {
-    handleClick: () => void;
+    saySomething: () => void;
 }
 class Example extends React.Component<IAppProps> {
     public constructor(props: any) {
@@ -13,6 +13,7 @@ class Example extends React.Component<IAppProps> {
       return (
         <div>
             <Chart />
+            <button onClick={this.props.saySomething}>saysomething</button>
         </div>
       );
     }

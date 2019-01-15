@@ -1,0 +1,11 @@
+.chart-context{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    &>aside{
+        width: 300px;
+    }
+    &>article{
+        width: calc(100% - 300px);
+    }
+}

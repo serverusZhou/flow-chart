@@ -1,6 +1,9 @@
 import * as React from "react";
-import createHoc from "./CreateHoc";
+import create from "./create";
 
+import * as styles from "./index.scss";
+
+console.log("stylesstyles", styles);
 const { Component } = React;
 
 interface IAppProps {}
@@ -8,11 +11,15 @@ interface IAppState {}
 
 class Chart extends Component<IAppProps, IAppState> {
 
-  public static create = createHoc;
+  public static create = create;
 
   public render(): JSX.Element {
     return (
-      <div>Hello your head</div>
+      <section
+        className={styles["chart-context"]}
+      >
+        <aside>this is the lest part</aside>
+      </section>
     );
   }
 }
