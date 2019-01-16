@@ -1,5 +1,5 @@
 // const ExtractTextPlugin = require('extract-text-webpack-plugin');
-// const autoprefixer = require('autoprefixer');
+const autoprefixer = require('autoprefixer');
 
 const typingsForCssModulesLoaderConf = {
   loader: 'typings-for-css-modules-loader',
@@ -48,38 +48,39 @@ const config = {
       },
       {
         test: /\.scss$/,
-        use: [
-          'style-loader',
-          'typings-for-css-modules-loader?modules&sass&namedExport&camelCase',
-          'sass-loader'
-        ]
+        // use: [
+        //   'style-loader',
+        //   'typings-for-css-modules-loader?modules&sass&namedExport&camelCase',
+        //   'sass-loader'
+        // ]
         // loader: ExtractTextPlugin.extract(
         //   'style-loader','css-loader','sass-loader'
         // ),
-        // use: [
-        //   'style-loader',
-        //   // { loader: 'css-loader', options: { importLoaders: 2, modules: true }},
-        //   // {
-        //   //   loader: 'postcss-loader',
-        //   //   options: {
-        //   //     ident: 'postcss',
-        //   //     plugins: () => [
-        //   //       require('postcss-flexbugs-fixes'),
-        //   //       autoprefixer({
-        //   //         browsers: [
-        //   //           '>1%',
-        //   //           'last 4 versions',
-        //   //           'Firefox ESR',
-        //   //           'not ie < 9', // React doesn't support IE8 anyway
-        //   //         ],
-        //   //         flexbox: 'no-2009',
-        //   //       }),
-        //   //     ],
-        //   //   }
-        //   // },
-        //   // 'sass-loader'
-        //   typingsForCssModulesLoaderConf
-        // ]
+        use: [
+          'style-loader',
+          //'to-string-loader',
+          { loader: 'css-loader', options: { importLoaders: 2, modules: true, camelCase: true, }},
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: () => [
+                require('postcss-flexbugs-fixes'),
+                autoprefixer({
+                  browsers: [
+                    '>1%',
+                    'last 4 versions',
+                    'Firefox ESR',
+                    'not ie < 9', // React doesn't support IE8 anyway
+                  ],
+                  flexbox: 'no-2009',
+                }),
+              ],
+            }
+          },
+          'sass-loader'
+          //typingsForCssModulesLoaderConf
+        ]
       },
       {
         test: /\.tsx?$/,

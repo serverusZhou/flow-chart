@@ -3,22 +3,24 @@ import create from "./create";
 
 import * as styles from "./index.scss";
 
-console.log("stylesstyles", styles);
-const { Component } = React;
-
 interface IAppProps {}
 interface IAppState {}
 
-class Chart extends Component<IAppProps, IAppState> {
+class Chart extends React.Component<IAppProps, IAppState> {
 
   public static create = create;
 
   public render(): JSX.Element {
     return (
       <section
-        className={styles["chart-context"]}
+        className={styles.chartContext}
       >
-        <aside>this is the lest part</aside>
+        <section>
+          this is the left part
+        </section>
+        <article>
+          <header></header>
+        </article>
       </section>
     );
   }

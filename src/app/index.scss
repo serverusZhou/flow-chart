@@ -9,3 +9,9 @@
         width: calc(100% - 300px);
     }
 }
+.chart-bar{
+    width: 100%;
+    &:hover{
+        color: #000
+    }
+}

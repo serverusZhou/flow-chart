@@ -10,13 +10,14 @@ class Example extends React.Component<IAppProps> {
         super(props);
     }
     public render(): JSX.Element {
-      return (
-        <div>
+        const{ saySomething } = this.props;
+        return (
+        <>
             <Chart />
-            <button onClick={this.props.saySomething}>saysomething</button>
-        </div>
-      );
+            <button onClick={saySomething}>saysomething</button>
+        </>
+        );
     }
-  }
+}
 
 export default Chart.create(Example);
