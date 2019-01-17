@@ -1,22 +1,38 @@
 import * as React from "react";
 
-const { Component } = React;
-interface IAppProps {}
-interface IAppStates {}
+import createChart from "./createChart";
+import createColumns from "./createColumns";
 
-const create = (WrappedComponent: any) => {
-    return class extends Component<IAppProps, IAppStates> {
-        public saySomething = () => {
-            console.log("saySomething");
-        }
-        public render(): JSX.Element {
-            return (
-                <WrappedComponent
-                    {...this.props}
-                    saySomething = {this.saySomething}
-                />
-            );
-        }
+const create = (createConfig: any) => {
+    console.log("createConfigcreateConfig", createConfig);
+    return (WrappedComponent: any) => {
+        return class extends React.Component {
+            public createChart = (config: any) => {
+                const Chart =  createChart(config);
+                return <Chart />;
+            }
+            public createColumns = (config: Array<{
+                name: string;
+                eles: Array<{
+                    imgSrc: string,
+                    type: string,
+                }>;
+            }>) => {
+                const Columns = createColumns(config);
+                return <Columns />;
+            }
+            public render(): JSX.Element {
+                return (
+                    <>
+                    <WrappedComponent
+                        {...this.props}
+                        initChart = {this.createChart}
+                        initColumns = {this.createColumns}
+                    />
+                    </>
+                );
+            }
+        };
     };
 };
 

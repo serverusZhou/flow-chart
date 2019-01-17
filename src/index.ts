@@ -1,2 +1,2 @@
-import Chart from "./app/App";
+import Chart from "./app";
 export default Chart;

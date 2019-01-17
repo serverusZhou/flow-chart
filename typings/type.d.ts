@@ -6,6 +6,8 @@ declare module "*.json"
 
 declare module "*.scss"
 
+declare module "*.png"
+
 // declare module "*.css"
 // {
 //   const content: {[className: string]: string};

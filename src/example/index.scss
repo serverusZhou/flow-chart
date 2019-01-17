@@ -1,0 +1,13 @@
+.content {
+    width: 800px;
+    display: flex;
+    margin: 0 auto;
+    border: 1px #000 solid;
+}
+.left {
+    width: 230px;
+}
+
+.right {
+    width: calc(100% - 230px)
+}
