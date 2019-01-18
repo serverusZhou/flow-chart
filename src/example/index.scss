@@ -1,11 +1,13 @@
 .content {
-    width: 800px;
+    width: 1000px;
     display: flex;
     margin: 0 auto;
     border: 1px #000 solid;
 }
 .left {
     width: 230px;
+    border-right: 1px #f0f0f0 solid;
+    padding: 0 7px;
 }
 
 .right {

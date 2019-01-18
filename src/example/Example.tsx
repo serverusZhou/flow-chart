@@ -9,30 +9,21 @@ interface IAppProps {
     initChart: () => React.ReactNode;
     initColumns: (config: any[]) => React.ReactNode;
 }
-const initColumnConfig = [
+const config = [
     {
         eles: [
             {
+                entityKey: "pool1",
                 imgSrc: poolImage,
                 type: "POOL",
             },
             {
+                entityKey: "pool2",
                 imgSrc: poolImage,
                 type: "POOL",
             },
             {
-                imgSrc: poolImage,
-                type: "POOL",
-            },
-            {
-                imgSrc: poolImage,
-                type: "POOL",
-            },
-            {
-                imgSrc: poolImage,
-                type: "POOL",
-            },
-            {
+                entityKey: "pool3",
                 imgSrc: poolImage,
                 type: "POOL",
             },
@@ -41,17 +32,49 @@ const initColumnConfig = [
     },
 ];
 class Example extends React.Component<IAppProps> {
+    public state = {
+        initColumnConfig: config,
+    };
+    public changeConfig = () => {
+        this.setState({
+            initColumnConfig: [
+                {
+                    eles: [
+                        {
+                            entityKey: "pool4",
+                            imgSrc: poolImage,
+                            type: "POOL",
+                        },
+                    ],
+                    name: "工艺池",
+                },
+                {
+                    eles: [
+                        {
+                            imgSrc: poolImage,
+                            type: "HUk",
+                        },
+                    ],
+                    name: "工艺仪器",
+                },
+            ],
+        });
+    }
     public render(): JSX.Element {
         const { initChart, initColumns } = this.props;
+        const { initColumnConfig } = this.state;
         return (
-            <div className={styles.content}>
-                <div className={styles.left}>
-                    {initColumns(initColumnConfig)}
+            <>
+                <div className={styles.content}>
+                    <div className={styles.left}>
+                        {initColumns(initColumnConfig)}
+                    </div>
+                    <div className={styles.right}>
+                        {initChart()}
+                    </div>
                 </div>
-                <div className={styles.right}>
-                    {initChart()}
-                </div>
-            </div>
+                <button onClick={this.changeConfig}>change config</button>
+            </>
         );
     }
 }

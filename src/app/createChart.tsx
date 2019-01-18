@@ -1,5 +1,9 @@
 import * as React from "react";
 
+import Action from "./action/Action";
+
+import * as styles from "./index.scss";
+
 const { Component } = React;
 
 interface IInfo {
@@ -14,12 +18,18 @@ class extends Component {
     ): void {
         const receivedMsg: string = ev.dataTransfer.getData("eleMsg");
         const extractInfo: IInfo = JSON.parse(receivedMsg);
-        console.log(extractInfo.imgSrc);
+        const action = new Action();
+        action.addEle(extractInfo);
+    }
+
+    public componentWillUnmount() {
+        console.log("do some will unmount thing!!");
     }
 
     public render(): JSX.Element {
         return (
             <section
+                className={styles.chartContext}
                 draggable={false}
                 onDrop={this.grapDrop}
                 onDragOver={
