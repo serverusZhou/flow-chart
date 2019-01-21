@@ -6,7 +6,7 @@ import * as poolImage from "../../assets/images/test/reaction_pool.png";
 import * as styles from "./index.scss";
 
 interface IAppProps {
-    initChart: () => React.ReactNode;
+    initChart: (config: { imgRes?: string }) => React.ReactNode;
     initColumns: (config: any[]) => React.ReactNode;
 }
 const config = [
@@ -70,7 +70,9 @@ class Example extends React.Component<IAppProps> {
                         {initColumns(initColumnConfig)}
                     </div>
                     <div className={styles.right}>
-                        {initChart()}
+                        {initChart({
+                            imgRes: "1080 * 300",
+                        })}
                     </div>
                 </div>
                 <button onClick={this.changeConfig}>change config</button>

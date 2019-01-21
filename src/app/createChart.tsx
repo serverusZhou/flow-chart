@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import Action from "./action/Action";
 
 import * as styles from "./index.scss";
@@ -10,20 +9,44 @@ interface IInfo {
     imgSrc: string;
 }
 
-const createChart = (config: any) =>
+const createChart = ({ imgRes }:
+{
+    imgRes?: string,
+}) =>
 class extends Component {
+    public canvasRef: React.RefObject<any> = null;
 
+    constructor(props: any) {
+        super(props);
+        this.canvasRef = React.createRef();
+    }
     public grapDrop(
         ev: React.DragEvent<HTMLDivElement>,
     ): void {
         const receivedMsg: string = ev.dataTransfer.getData("eleMsg");
         const extractInfo: IInfo = JSON.parse(receivedMsg);
-        const action = new Action();
-        action.addEle(extractInfo);
+        Action.addEle(extractInfo);
     }
 
     public componentWillUnmount() {
         console.log("do some will unmount thing!!");
+    }
+
+    public componentDidMount() {
+        this.init();
+    }
+
+    public init() {
+
+        /* 初始化绘图参数 */
+        Action.chartParasSet(
+            {
+                canvasDom: this.canvasRef.current,
+                imgRes,
+            },
+        );
+        /* 初始化绘图 */
+        Action.letDrawWork();
     }
 
     public render(): JSX.Element {
@@ -37,7 +60,7 @@ class extends Component {
                     ev.preventDefault()
                 }
             >
-                <canvas style={{ width: "100%", height: "100%" }}/>
+                <canvas style={{ width: "100%", height: "100%" }} ref={this.canvasRef} />
             </section>
         );
     }
