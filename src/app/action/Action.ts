@@ -2,7 +2,7 @@
 import ChartsData from "../ChartsData";
 import PoolAction from "./PoolAction";
 
-import { setReasonableRes } from "../utils/htmlUtil";
+import { getPosition, setReasonableRes } from "../utils/htmlUtil";
 
 interface IChartParasSet {
     canvasDom: HTMLCanvasElement;
@@ -18,7 +18,9 @@ class Action {
     public static addEle(eleObj: any): any {
         switch (eleObj.type) {
             case "POOL":
-                (new PoolAction()).add(eleObj);
+                (async () => {
+                    (new PoolAction()).add(eleObj);
+                })();
                 break;
             default:
                 throw new Error(`没有实体类对应${eleObj.type}类型`);
@@ -38,7 +40,7 @@ class Action {
                  *  需特别注意此方法性能
                  */
                 if (ele.draw && typeof ele.draw === "function") {
-                    ele.draw(canvasCtx);
+                    ele.draw(canvasCtx, ele);
                 } else {
                     switch (ele.type) {
                         case "POOL":
@@ -64,6 +66,8 @@ class Action {
         }
         ChartsData.allInfos.canvasDom = canvasDom;
         ChartsData.allInfos.canvasCtx = canvasDom.getContext("2d");
+        ChartsData.allInfos.canvasPos = getPosition(canvasDom);
+        console.log(ChartsData.allInfos.canvasPos);
     }
 }
 export default Action;

@@ -60,7 +60,10 @@ class extends Component {
                     ev.preventDefault()
                 }
             >
-                <canvas style={{ width: "100%", height: "100%" }} ref={this.canvasRef} />
+                <header className={styles.chartBar}>
+                    this is the little bar
+                </header>
+                <canvas className={styles.chartContent} ref={this.canvasRef} />
             </section>
         );
     }

@@ -14,16 +14,18 @@ class PoolAction {
         ctx.moveTo(0, 0);
         ctx.lineTo(50, 50);
         ctx.stroke();
-        ctx.drawImage(poolEntity.image, 20, 10);
+        if (poolEntity.image) {
+            ctx.drawImage(poolEntity.image, 20, 10);
+        }
         ctx.save();
     }
 
-    public add(ele: any): PoolEntity {
+    public async add(ele: any): Promise<PoolEntity> {
         const poolEntity: PoolEntity = new PoolEntity();
         poolEntity.id = UUID.v1();
         poolEntity.type = ele.type;
         poolEntity.entityKey = ele.entityKey;
-        poolEntity.image = getHTMLImageElement(ele.imgUrl);
+        poolEntity.image = await getHTMLImageElement(ele.imgSrc);
         ChartsData.allEles.push(poolEntity);
         return poolEntity;
     }
