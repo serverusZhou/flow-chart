@@ -11,6 +11,11 @@ class CommonPoolEntity extends BaseEntity {
     public initData: object;
     // 流程图编辑之后的真实数据
     public acturalData: object;
+    // 体积
+    public size: {
+        width: number,
+        height: number,
+    };
     // 内部空间（可能一些监测点需要放在内部）
     public internalSpacePercent: number[];
 }

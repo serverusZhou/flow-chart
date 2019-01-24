@@ -8,16 +8,15 @@ import { getHTMLImageElement } from "../utils/htmlUtil";
 class PoolAction {
 
     public static draw(ctx: CanvasRenderingContext2D, poolEntity: PoolEntity): void {
-        ctx.beginPath();
-        ctx.lineWidth = 4;
-        ctx.strokeStyle = "#000";
-        ctx.moveTo(0, 0);
-        ctx.lineTo(50, 50);
-        ctx.stroke();
         if (poolEntity.image) {
-            ctx.drawImage(poolEntity.image, 20, 10);
+            ctx.drawImage(
+                poolEntity.image,
+                poolEntity.points[0].x,
+                poolEntity.points[0].y,
+                poolEntity.size.width,
+                poolEntity.size.height,
+            );
         }
-        ctx.save();
     }
 
     public async add(ele: any): Promise<PoolEntity> {
@@ -25,6 +24,11 @@ class PoolAction {
         poolEntity.id = UUID.v1();
         poolEntity.type = ele.type;
         poolEntity.entityKey = ele.entityKey;
+        poolEntity.points = [{
+            x: ele.pointerPos.left - ChartsData.allInfos.canvasPos.left,
+            y: ele.pointerPos.top - ChartsData.allInfos.canvasPos.top,
+        }];
+        poolEntity.size = ele.size;
         poolEntity.image = await getHTMLImageElement(ele.imgSrc);
         ChartsData.allEles.push(poolEntity);
         return poolEntity;

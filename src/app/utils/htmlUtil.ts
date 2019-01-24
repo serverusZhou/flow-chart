@@ -27,4 +27,4 @@ export function getPosition(htmlElement: any) {
         ele = ele.offsetParent;
     }
     return { left, top};
-  }
+}

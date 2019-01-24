@@ -64,10 +64,11 @@ class Action {
         } else {
             setReasonableRes(canvasDom);
         }
-        ChartsData.allInfos.canvasDom = canvasDom;
-        ChartsData.allInfos.canvasCtx = canvasDom.getContext("2d");
-        ChartsData.allInfos.canvasPos = getPosition(canvasDom);
-        console.log(ChartsData.allInfos.canvasPos);
+        ChartsData.allInfos = {
+            canvasCtx: canvasDom.getContext("2d"),
+            canvasDom,
+            canvasPos: getPosition(canvasDom),
+        };
     }
 }
 export default Action;

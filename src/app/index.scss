@@ -1,7 +1,9 @@
 .chart-context{
     width: 100%;
     height: 100%;
+    display: flex;
     cursor: move;
+    flex-direction: column;
 }
 
 .chart-bar{
@@ -15,6 +17,10 @@
 .chart-content{
     width: 100%;
     height: calc(100% - 30px);
+}
+
+.chart-warp{
+    flex: 1;
 }
 
 .eles-h3{

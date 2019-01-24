@@ -15,16 +15,28 @@ const config = [
             {
                 entityKey: "pool1",
                 imgSrc: poolImage,
+                size: {
+                    height: 86,
+                    width: 31,
+                },
                 type: "POOL",
             },
             {
                 entityKey: "pool2",
                 imgSrc: poolImage,
+                size: {
+                    height: 86,
+                    width: 30,
+                },
                 type: "POOL",
             },
             {
                 entityKey: "pool3",
                 imgSrc: poolImage,
+                size: {
+                    height: 86,
+                    width: 30,
+                },
                 type: "POOL",
             },
         ],
@@ -71,7 +83,7 @@ class Example extends React.Component<IAppProps> {
                     </div>
                     <div className={styles.right}>
                         {initChart({
-                            imgRes: "1080 * 300",
+                            // imgRes: "1920 * 700",
                         })}
                     </div>
                 </div>
