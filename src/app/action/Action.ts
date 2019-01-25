@@ -2,11 +2,34 @@
 import ChartsData from "../ChartsData";
 import PoolAction from "./PoolAction";
 
-import { getPosition, setReasonableRes } from "../utils/htmlUtil";
+import {
+    getPosition,
+    isPointInPath,
+    setReasonableRes,
+    transPsToCoordinate,
+ } from "../utils/htmlUtil";
 
 interface IChartParasSet {
     canvasDom: HTMLCanvasElement;
     imgRes?: string;
+}
+
+function getCoordinate(clientPos: any) {
+    return transPsToCoordinate(ChartsData.allInfos.canvasDom, {
+        x: clientPos.x - ChartsData.allInfos.canvasPos.left,
+        y: clientPos.y - ChartsData.allInfos.canvasPos.top,
+    });
+}
+
+function getElesAtAPoint(clientPos: {x: number, y: number}): any[] {
+    const choosenEles: any[] = [];
+    const pointPos = getCoordinate(clientPos);
+    ChartsData.allEles.forEach((ele) => {
+            if (isPointInPath(pointPos, ele.points)) {
+                choosenEles.push(ele);
+            }
+        });
+    return choosenEles;
 }
 
 class Action {
@@ -19,13 +42,22 @@ class Action {
         switch (eleObj.type) {
             case "POOL":
                 (async () => {
+                    eleObj.pointCoordinate = getCoordinate(eleObj.pointerPos);
                     (new PoolAction()).add(eleObj);
                 })();
                 break;
             default:
                 throw new Error(`没有实体类对应${eleObj.type}类型`);
         }
+    }
 
+    public static chooseEle(clientPos: {x: number, y: number}): any[] {
+        return getElesAtAPoint(clientPos);
+    }
+
+    public static moveEle(mouseDownPos: {x: number, y: number}, movePos: {x: number, y: number}): void {
+        getElesAtAPoint(mouseDownPos);
+        getElesAtAPoint(movePos);
     }
 
     public static letDrawWork() {
@@ -34,7 +66,7 @@ class Action {
         (function loop() {
             allEles.forEach((ele: any) => {
                 /**
-                 *  对于某一个特定的类型可以设定特定的draw方法
+                 *  对于某一个特定的类型可以inject特定的draw方法
                  *  此方法是为了应对不时之需，来不及重新设计时可用
                  *  但后面需调整为不再需要此方法
                  *  需特别注意此方法性能
@@ -68,6 +100,7 @@ class Action {
             canvasCtx: canvasDom.getContext("2d"),
             canvasDom,
             canvasPos: getPosition(canvasDom),
+            staticCanvasCtx: canvasDom.getContext("2d"),
         };
     }
 }

@@ -8,7 +8,7 @@ const { Component } = React;
 
 interface IInfo {
     imgSrc: string;
-    pointerPos: { left: number, top: number };
+    pointerPos: { x: number, y: number };
 }
 
 const createChart = ({ imgRes }:
@@ -26,8 +26,8 @@ class extends Component {
         ev: React.DragEvent<HTMLDivElement>,
     ): void {
         const pointerPos = {
-            left: ev.clientX,
-            top: ev.clientY,
+            x: ev.clientX,
+            y: ev.clientY,
         };
         const receivedMsg: string = ev.dataTransfer.getData("eleMsg");
         const extractInfo: IInfo = JSON.parse(receivedMsg);
@@ -47,12 +47,12 @@ class extends Component {
         /** 注册事件 */
         separateClickAndMove({
             click: (ev) => {
-                console.log("To choose");
+                Action.chooseEle({ x: ev.clientX, y: ev.clientY });
             },
             ele: this.canvasRef.current,
             move: (ev, mouseDownPos) => {
                 if (mouseDownPos) {
-                    console.log("To move");
+                    Action.moveEle(mouseDownPos, { x: ev.clientX, y: ev.clientY });
                 } else {
                     console.log("To hover");
                 }
@@ -88,10 +88,6 @@ class extends Component {
                     }
                 >
                     <canvas
-                        onClick={
-                            (ev: React.DragEvent<HTMLCanvasElement>) =>
-                            ev.preventDefault()
-                        }
                         className={styles.chartContent}
                         ref={this.canvasRef}
                     />

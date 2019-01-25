@@ -3,7 +3,7 @@ import * as UUID from "uuid";
 
 import ChartsData from "../ChartsData";
 import PoolEntity from "../entity/pool/CommonPoolEntity";
-import { getHTMLImageElement } from "../utils/htmlUtil";
+import { getHTMLImageElement, transPsToCoordinate } from "../utils/htmlUtil";
 
 class PoolAction {
 
@@ -21,17 +21,28 @@ class PoolAction {
 
     public async add(ele: any): Promise<PoolEntity> {
         const poolEntity: PoolEntity = new PoolEntity();
+        const startPoint = ele.pointCoordinate;
         poolEntity.id = UUID.v1();
         poolEntity.type = ele.type;
         poolEntity.entityKey = ele.entityKey;
-        poolEntity.points = [{
-            x: ele.pointerPos.left - ChartsData.allInfos.canvasPos.left,
-            y: ele.pointerPos.top - ChartsData.allInfos.canvasPos.top,
-        }];
+        poolEntity.zIndex = 0;
+        poolEntity.points = [
+            startPoint,
+            { x: startPoint.x + ele.size.width, y: startPoint.y },
+            { x: startPoint.x + ele.size.width, y: startPoint.y + ele.size.height},
+            { x: startPoint.x, y: startPoint.y + ele.size.height},
+            startPoint,
+        ];
         poolEntity.size = ele.size;
         poolEntity.image = await getHTMLImageElement(ele.imgSrc);
+        poolEntity.initData = {};
+        poolEntity.acturalData = {};
         ChartsData.allEles.push(poolEntity);
         return poolEntity;
+    }
+
+    public updatePosition(eleId: string, position: {x: number, y: number}): void {
+        const pollEles = ChartsData.allEles.filter((ele) => ele.type === "POOL");
     }
 }
 

@@ -4,6 +4,7 @@ class ChartsData {
     /* 所有操作信息 */
     public static allInfos: {
         canvasDom: HTMLCanvasElement,
+        staticCanvasCtx: CanvasRenderingContext2D,
         canvasCtx: CanvasRenderingContext2D,
         canvasPos: {left: number, top: number},
     };
