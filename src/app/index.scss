@@ -16,11 +16,16 @@
 
 .chart-content{
     width: 100%;
-    height: calc(100% - 30px);
+    height: 100%;
+    position: absolute;
+    z-index: 101;
+    top: 0;
+    left: 0;
 }
 
 .chart-warp{
     flex: 1;
+    position: relative;
 }
 
 .eles-h3{

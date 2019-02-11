@@ -6,7 +6,7 @@ import * as poolImage from "../../assets/images/test/reaction_pool.png";
 import * as styles from "./index.scss";
 
 interface IAppProps {
-    initChart: (config: { imgRes?: string }) => React.ReactNode;
+    initChart: (config: { gridWidth?: number, imgRes?: string }) => React.ReactNode;
     initColumns: (config: any[]) => React.ReactNode;
 }
 const config = [
@@ -16,8 +16,8 @@ const config = [
                 entityKey: "pool1",
                 imgSrc: poolImage,
                 size: {
-                    height: 86,
-                    width: 31,
+                    height: 135,
+                    width: 51,
                 },
                 type: "POOL",
             },
@@ -25,8 +25,8 @@ const config = [
                 entityKey: "pool2",
                 imgSrc: poolImage,
                 size: {
-                    height: 86,
-                    width: 30,
+                    height: 135,
+                    width: 51,
                 },
                 type: "POOL",
             },
@@ -34,8 +34,8 @@ const config = [
                 entityKey: "pool3",
                 imgSrc: poolImage,
                 size: {
-                    height: 86,
-                    width: 30,
+                    height: 135,
+                    width: 51,
                 },
                 type: "POOL",
             },
@@ -83,7 +83,8 @@ class Example extends React.Component<IAppProps> {
                     </div>
                     <div className={styles.right}>
                         {initChart({
-                            // imgRes: "1920 * 700",
+                            gridWidth: 2,
+                            imgRes: "1000 * 620",
                         })}
                     </div>
                 </div>

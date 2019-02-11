@@ -55,7 +55,7 @@ class PoolAction {
 
     public updatePosition(eleId: string, position: {x: number, y: number}): void {
         // console.log("positionposition", position);
-        // const pollEles = ChartsData.allEles.filter((ele) => ele.type === "POOL");
+        // const poolEles = ChartsData.allEles.filter((ele) => ele.type === "POOL");
         const elemment = ChartsData.allEles.find((ele) => ele.id === eleId);
         if (elemment.type === "POOL") {
             elemment.points = [

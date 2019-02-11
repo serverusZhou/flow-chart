@@ -11,24 +11,24 @@ interface IInfo {
     pointerPos: { x: number, y: number };
 }
 
-const createChart = ({ imgRes }:
+const createChart = ({ gridWidth, imgRes }:
 {
+    gridWidth?: number,
     imgRes?: string,
 }) =>
 class extends Component {
     public canvasRef: React.RefObject<any> = null;
+    public staticCanvasRef: React.RefObject<any> = null;
 
     constructor(props: any) {
         super(props);
         this.canvasRef = React.createRef();
+        this.staticCanvasRef = React.createRef();
     }
     public grapDrop(
         ev: React.DragEvent<HTMLDivElement>,
     ): void {
-        const pointerPos = {
-            x: ev.clientX,
-            y: ev.clientY,
-        };
+        const pointerPos = { x: Number(ev.clientX.toFixed(2)), y: Number(ev.clientY.toFixed(2)) };
         const receivedMsg: string = ev.dataTransfer.getData("eleMsg");
         const extractInfo: IInfo = JSON.parse(receivedMsg);
         extractInfo.pointerPos = pointerPos;
@@ -70,17 +70,20 @@ class extends Component {
             {
                 canvasDom: this.canvasRef.current,
                 imgRes,
+                staticCanvasDom: this.staticCanvasRef.current,
             },
         );
         /* 初始化绘图 */
-        Action.letDrawWork();
+        Action.letDrawWork({
+            gridWidth,
+        });
     }
 
     public render(): JSX.Element {
         return (
             <section className={styles.chartContext}>
                 <header className={styles.chartBar}>
-                    this is the little bar
+                    This is the little bar
                 </header>
                 <div
                     className={styles.chartWarp}
@@ -93,6 +96,11 @@ class extends Component {
                     <canvas
                         className={styles.chartContent}
                         ref={this.canvasRef}
+                    />
+                    <canvas
+                        className={styles.chartContent}
+                        style={{zIndex: 100}}
+                        ref={this.staticCanvasRef}
                     />
                 </div>
             </section>
