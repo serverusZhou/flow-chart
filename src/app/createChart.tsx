@@ -50,15 +50,18 @@ class extends Component {
                 Action.chooseEle({ x: ev.clientX, y: ev.clientY });
             },
             ele: this.canvasRef.current,
-            move: (ev, mouseDownPos) => {
+            mouseDown: (ev) => {
+                Action.setMouseDownEles({ x: ev.clientX, y: ev.clientY });
+            },
+            move: (ev, lastMovePos, mouseDownPos) => {
                 if (mouseDownPos) {
-                    Action.moveEle(mouseDownPos, { x: ev.clientX, y: ev.clientY });
+                    Action.moveEle({ x: ev.clientX, y: ev.clientY }, lastMovePos);
                 } else {
-                    console.log("To hover");
+                    Action.hoverEle({ x: ev.clientX, y: ev.clientY });
                 }
             },
-            moveEnd: (ev) => {
-                console.log("Do some set work");
+            moveEnd: () => {
+                Action.clearMouseDownEles();
             },
         });
 

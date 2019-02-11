@@ -16,4 +16,5 @@ export default class BaseEntity {
     public drawMethod: DrawMethod; // 绘图方式
     public image: HTMLImageElement; // 图片（new Image）
     public baseColor: string = "#000"; // 基础颜色
+    public shouldDrawHover: boolean = false; // 是否有hover效果
 }

@@ -41,10 +41,8 @@ class Action {
     public static addEle(eleObj: any): any {
         switch (eleObj.type) {
             case "POOL":
-                (async () => {
-                    eleObj.pointCoordinate = getCoordinate(eleObj.pointerPos);
-                    (new PoolAction()).add(eleObj);
-                })();
+                eleObj.pointCoordinate = getCoordinate(eleObj.pointerPos);
+                (new PoolAction()).add(eleObj);
                 break;
             default:
                 throw new Error(`没有实体类对应${eleObj.type}类型`);
@@ -55,15 +53,52 @@ class Action {
         return getElesAtAPoint(clientPos);
     }
 
-    public static moveEle(mouseDownPos: {x: number, y: number}, movePos: {x: number, y: number}): void {
-        getElesAtAPoint(mouseDownPos);
-        getElesAtAPoint(movePos);
+    public static setMouseDownEles(mouseDownPos: {x: number, y: number}) {
+        ChartsData.allInfos.mouseDownEles = getElesAtAPoint(mouseDownPos);
+    }
+
+    public static clearMouseDownEles() {
+        ChartsData.allInfos.mouseDownEles = [];
+    }
+
+    public static moveEle(movePos: {x: number, y: number}, lastMovePos: {x: number, y: number}): void {
+        const atEles = ChartsData.allInfos.mouseDownEles;
+        const deviation = {
+            x: getCoordinate(movePos).x - getCoordinate(lastMovePos).x,
+            y: getCoordinate(movePos).y - getCoordinate(lastMovePos).y,
+        };
+        // TODO 预留预处理atEles的关系
+        // arrangeAllAtEles();
+        atEles.forEach((ele) => {
+            switch (ele.type) {
+                case "POOL":
+                    (new PoolAction()).updatePosition(ele.id,
+                        {
+                            x: ele.points[0].x + deviation.x,
+                            y: ele.points[0].y + deviation.y,
+                        });
+            }
+        });
+        // const moveAtEle = getElesAtAPoint(movePos);
+        // console.log("moveAtElemoveAtEle", moveAtEle);
+    }
+
+    public static hoverEle(pos: {x: number, y: number}) {
+        ChartsData.allEles.forEach((e) => { e.shouldDrawHover = false; });
+        const eles = getElesAtAPoint(pos);
+        eles.forEach((ele) => { ele.shouldDrawHover = true; });
     }
 
     public static letDrawWork() {
         const allEles = ChartsData.allEles;
-        const { canvasCtx } = ChartsData.allInfos;
+        const { canvasCtx, canvasDom } = ChartsData.allInfos;
+        // 设置基础样式参数
+        canvasCtx.lineWidth = 1;
+        canvasCtx.strokeStyle = "#000";
+        canvasCtx.save();
+
         (function loop() {
+            canvasCtx.clearRect(0, 0, canvasDom.width, canvasDom.height);
             allEles.forEach((ele: any) => {
                 /**
                  *  对于某一个特定的类型可以inject特定的draw方法
@@ -100,6 +135,7 @@ class Action {
             canvasCtx: canvasDom.getContext("2d"),
             canvasDom,
             canvasPos: getPosition(canvasDom),
+            mouseDownEles: null,
             staticCanvasCtx: canvasDom.getContext("2d"),
         };
     }

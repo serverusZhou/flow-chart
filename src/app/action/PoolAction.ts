@@ -17,6 +17,18 @@ class PoolAction {
                 poolEntity.size.height,
             );
         }
+        if (poolEntity.shouldDrawHover) {
+            ctx.beginPath();
+            poolEntity.points.forEach((point, index) => {
+                if (index === 0) {
+                    ctx.moveTo(point.x, point.y);
+                } else {
+                    ctx.lineTo(point.x, point.y);
+                }
+            });
+            ctx.closePath();
+            ctx.stroke();
+        }
     }
 
     public async add(ele: any): Promise<PoolEntity> {
@@ -42,7 +54,18 @@ class PoolAction {
     }
 
     public updatePosition(eleId: string, position: {x: number, y: number}): void {
-        const pollEles = ChartsData.allEles.filter((ele) => ele.type === "POOL");
+        // console.log("positionposition", position);
+        // const pollEles = ChartsData.allEles.filter((ele) => ele.type === "POOL");
+        const elemment = ChartsData.allEles.find((ele) => ele.id === eleId);
+        if (elemment.type === "POOL") {
+            elemment.points = [
+                position,
+                { x: position.x + elemment.size.width, y: position.y },
+                { x: position.x + elemment.size.width, y: position.y + elemment.size.height},
+                { x: position.x, y: position.y + elemment.size.height},
+                position,
+            ];
+        }
     }
 }
 
