@@ -83,7 +83,7 @@ class Example extends React.Component<IAppProps> {
                     </div>
                     <div className={styles.right}>
                         {initChart({
-                            gridWidth: 2,
+                            gridWidth: 3,
                             imgRes: "1000 * 620",
                         })}
                     </div>

@@ -6,7 +6,7 @@ import PoolEntity from "../entity/pool/CommonPoolEntity";
 import { getHTMLImageElement, transPsToCoordinate } from "../utils/htmlUtil";
 
 class PoolAction {
-
+    // 绘图
     public static draw(ctx: CanvasRenderingContext2D, poolEntity: PoolEntity): void {
         if (poolEntity.image) {
             ctx.drawImage(
@@ -31,6 +31,7 @@ class PoolAction {
         }
     }
 
+    // 新增
     public async add(ele: any): Promise<PoolEntity> {
         const poolEntity: PoolEntity = new PoolEntity();
         const startPoint = ele.pointCoordinate;
@@ -53,9 +54,14 @@ class PoolAction {
         return poolEntity;
     }
 
-    public updatePosition(eleId: string, position: {x: number, y: number}): void {
-        // console.log("positionposition", position);
-        // const poolEles = ChartsData.allEles.filter((ele) => ele.type === "POOL");
+    // 删除
+    public delete(id: string): any {
+        const elemment = ChartsData.allEles.find((ele) => ele.id === id);
+        return elemment;
+    }
+
+    // 更新位置
+    public updatePosition(eleId: string, position: {x: number, y: number}): any {
         const elemment = ChartsData.allEles.find((ele) => ele.id === eleId);
         if (elemment.type === "POOL") {
             elemment.points = [
@@ -66,6 +72,7 @@ class PoolAction {
                 position,
             ];
         }
+        return elemment;
     }
 }
 
